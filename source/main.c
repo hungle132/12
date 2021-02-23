@@ -39,7 +39,7 @@ unsigned char go;
 
 enum states{start,init,wait1,wait2,both}state;
 enum states1{start1,init1,wait3,wait4,both1}state1;
-enum states2{start3,init2,wait5,wait6,both2}state2;
+enum states2{start2,init2,wait5,wait6,both2}state2;
 enum states3{start3,init3,wait7,wait8,both3}state3;
 
 
@@ -89,9 +89,35 @@ void fsm1(){
 
 }
 void fsm2(){
+case start2:
+		state2 = init2;
+		break;
+	case init1:
+
+	if(go == 2){
+		state1 = wait5;
+		break;
+	}
+	else{
+	state = init2;
+	}
+	break;
 
 }
 void fsm3(){
+case start3:
+		state3 = init1;
+		break;
+	case init3:
+
+	if(go == 3){
+		state3 = wait7;
+		break;
+	}
+	else{
+	state = init3;
+	}
+	break;
 
 }
 
@@ -101,12 +127,16 @@ int main(void) {
 DDRA = 0x00; PORTA = 0xFF;
 DDRB = 0xFF; PORTB = 0x00;
 DDRC = 0xFF; PORTC = 0x00;
-unsigned char test = 0xFF;
 state = start;
+state1 = start1;
+state2 = start2;
+state3= start3;
     /* Insert your solution below */
     while (1) {
-	    transmit_data(test);
 	    fsm();
+	    fsm1();
+	    fsm2();
+	    fsm3();
     }
     return 1;
 }
