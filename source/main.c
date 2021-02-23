@@ -38,6 +38,11 @@ unsigned char go;
 
 
 enum states{start,init,wait1,wait2,both}state;
+enum states1{start1,init1,wait3,wait4,both1}state1;
+enum states2{start3,init2,wait5,wait6,both2}state2;
+enum states3{start3,init3,wait7,wait8,both3}state3;
+
+
 
 void fsm(){
 	but = ~PINA & 0x01;
@@ -48,59 +53,47 @@ void fsm(){
 		state = init;
 		break;
 	case init:
-		if(but){
-		inc++;
-		transmit_data(inc);
-		state = wait1;
-		}
-		else if (but1){
-		inc--;
-		transmit_data(inc);
-		state = wait2;
-		}
-		else if (but && but1){
-		inc = 0;
-		transmit_data(inc);
-		state = both;
-		}
-		else{
-		state = init;
-		}
-		break;
-
-	case wait1:
-		if(but){
-		state = wait1;
-		}
-		else if (!but){
-		state = init;
-		}
-		break;
-
-	case wait2:
-		if(but1){
-		state = wait2;
-		}
-		else if (!but1){
-		state = init;
-		}
-		break;
-	case both:
 		if(but && but1){
-		state = both;
+			state = wait1;
+			break;
+			else{
+			state = init;
+			break;
+			}
+	}
+	case wait1:
+		if (but || but1){
+			//go = 1;
+			state = wait1;
+			break;
 		}
-		else if (!but && !but1){
+		else if (!but || but1){
 		state = init;
 		}
-		break;
-	}
-	switch(state){
-		default:
-			break;
-	}
 }
 
+void fsm1(){
+	case start1:
+		state1 = init1;
+		break;
+	case init1:
 
+	if(go == 1){
+		state1 = wait3;
+		break;
+	}
+	else{
+	state = init1;
+	}
+	break;
+
+}
+void fsm2(){
+
+}
+void fsm3(){
+
+}
 
 
 int main(void) {
